@@ -7,6 +7,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
+from sklearn import metrics
 
 # Choose 4 categories to load
 categories = ['alt.atheism',
@@ -136,4 +137,25 @@ for i in range(4):
 # When we performed the clustering, we chose to use 4 clusters
 #  This was intentional as we know our data comes from 4 different groups.
 
+# A number of different metrix exist that allow us to measure how well
+#  the clusters fit the known distribution of underlying newsgroups.
+# One such metric is the homogeneity which is a measure of how pure the
+#  clusters are with respect to the known groupings
 
+print("Homogeneity: {}".format(metrics.homogeneity_score(twenty_train.target,
+                                                         km.labels_)))
+# Homogeneity scores vary between 0 and 1
+#  A score of 1 indicates that the clusters match the original label
+#  distribution exactly.
+
+# Exercise: Can you print out which cluster each document belongs to?
+#print(km.labels_)
+#print(twenty_train.filenames)
+
+print(km.labels_[:10])
+print(twenty_train.filenames[:10])
+
+#for doc in range(10):
+#    print(twenty_train.filenames[doc], km.labels_[doc])
+
+#print(twenty_train.filenames[km.labels_])
